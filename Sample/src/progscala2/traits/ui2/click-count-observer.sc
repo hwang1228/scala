@@ -1,17 +1,21 @@
 // src/main/scala/progscala2/traits/ui2/click-count-observer.sc
 import progscala2.traits.ui2._
 import progscala2.traits.observer._
-
+object test_click_cnt {
 // Button 내에서 'click'을 오버라이딩할 필요는 없다.
 val button = new Button("Click Me!") with ObservableClicks
+                                                  //> button  : progscala2.traits.ui2.Button with progscala2.traits.ui2.Observable
+                                                  //| Clicks = test_click_cnt$$anonfun$main$1$$anon$1@c2e1f26
 
 class ClickCountObserver extends Observer[Clickable] {
   var count = 0
   def receiveUpdate(state: Clickable): Unit = count += 1
 }
 
-val bco1 = new ClickCountObserver
-val bco2 = new ClickCountObserver
+val bco1 = new ClickCountObserver                 //> bco1  : test_click_cnt.ClickCountObserver = test_click_cnt$$anonfun$main$1$C
+                                                  //| lickCountObserver$1@511baa65
+val bco2 = new ClickCountObserver                 //> bco2  : test_click_cnt.ClickCountObserver = test_click_cnt$$anonfun$main$1$C
+                                                  //| lickCountObserver$1@340f438e
 
 button addObserver bco1
 button addObserver bco2
@@ -20,4 +24,5 @@ button addObserver bco2
 
 assert(bco1.count == 5, s"bco1.count ${bco1.count} != 5")
 assert(bco2.count == 5, s"bco2.count ${bco2.count} != 5")
-println("Success!")
+println("Success!")                               //> Success!
+}
